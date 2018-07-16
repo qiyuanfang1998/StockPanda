@@ -57,7 +57,7 @@ class Stock(models.Model):
 
 
     def __str__(self):
-        return self.ticker
+        return self.symbol
 
 class CryptoCurrency(models.Model):
     #crypto attributes
