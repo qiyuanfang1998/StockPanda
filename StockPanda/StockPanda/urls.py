@@ -16,6 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 
+from App import views
+from User import views as user_views
+
 urlpatterns = [
+    #admin interface
     url('admin/', admin.site.urls),
+    #homepage interface
+    url(r'^$', views.home, name='home'),
+    #signup interface
+    url(r'^signup/$', user_views.signup, name='signup'),
+
 ]
