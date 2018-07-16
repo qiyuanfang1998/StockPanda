@@ -8,7 +8,7 @@ Django ORM models for database for main Application.
 Information for queries are not stored.
 Description:
 Users have A SuperPortfolio
-Users have A WatchList
+Users have A WatchList that has MANY TO MANY ZERO OR MORE STOCK/CryptoCurrency
 SuperPortfolios have ZERO OR MORE Portfolios
 Portfolios MANY TO MANY ZERO OR MORE Stocks through StockOwnership intermediate
 Portfolios MANY TO MANY ZERO OR MORE CryptoCurrency through CryptoCurrencyOwnership intermediate
@@ -17,7 +17,7 @@ Portfolios MANY TO MANY ZERO OR MORE CryptoCurrency through CryptoCurrencyOwners
 class Stock(models.Model):
     #stock attributes
     ticker = models.CharField(max_length = 20)
-    current_value = models.DecimalField(max_digits = 19, decimal_places = 2)
+    current_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     last_updated_time = models.DateTimeField(auto_now_add = True)
     #stock performance
         #stock amount changes information
@@ -42,7 +42,7 @@ class Stock(models.Model):
 class CryptoCurrency(models.Model):
     #crypto attributes
     currency_name = models.CharField(max_length = 50)
-    current_value = models.DecimalField(max_digits = 19, decimal_places = 2)
+    current_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     last_updated_time = models.DateTimeField(auto_now_add = True)
     #crypto performance
         #crpyto amount changes information
@@ -68,18 +68,10 @@ class WatchList(models.Model):
     stocks_watched = models.ManyToManyField(Stock, related_name = 'stocks_watched')
     cryptocurrencies_watched = models.ManyToManyField(CryptoCurrency, related_name = 'cryptocurrencies_watched')
 
-    @receiver(post_save,sender = User)
-    def create_user_watchlist(sender,instance,created,**kwargs):
-        if created:
-            WatchList.objects.create(owned_by = instance)
-
-    @receiver(post_save, sender = User)
-    def save_user_watchlist(sender, instance, **kwargs):
-        instance.watchlist.save()
 
 class SuperPortfolio(models.Model):
     #super portfolio attributes
-    total_value = models.DecimalField(max_digits = 19, decimal_places = 2)
+    total_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     #super portfolio - User foreign key
     owned_by = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'superportfolio')
     #aggregate portfolio perfomance
@@ -98,21 +90,13 @@ class SuperPortfolio(models.Model):
     one_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     all_time_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
 
-    @receiver(post_save, sender = User)
-    def create_user_superportfolio(sender, instance, created, **kwargs):
-        if created:
-            SuperPortfolio.objects.create(owned_by = instance)
-
-    @receiver(post_save, sender = User)
-    def save_user_superportfolio(sender, instance, **kwargs):
-        instance.superportfolio.save()
 
 class Portfolio(models.Model):
     #portfolio attributes
     name = models.CharField(max_length = 50)
     description = models.CharField(max_length = 250)
-    total_value = models.DecimalField(max_digits = 19, decimal_places = 2)
-    cash = models.DecimalField(max_digits = 19, decimal_places = 2)
+    total_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    cash = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     #portfolio - super portfolio foreign key
     owned_by = models.ForeignKey(SuperPortfolio,on_delete = models.CASCADE, related_name = 'portfolios')
     #stock, crypto ownership M2M relationships
@@ -150,3 +134,15 @@ class CryptoCurrencyOwnership(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete = models.CASCADE)
     units = models.DecimalField(max_digits = 19, decimal_places = 2)
     average_price_per_unit = models.DecimalField(max_digits = 19, decimal_places = 2)
+
+#auto create watchlist and SuperPortfolio for new User
+@receiver(post_save,sender = User)
+def create_user_watchlist_and_superportfolio(sender,instance,created,**kwargs):
+    if created:
+        WatchList.objects.create(owned_by = instance)
+        SuperPortfolio.objects.create(owned_by = instance)
+
+@receiver(post_save, sender = User)
+def save_user_watchlist_and_superportfolio(sender, instance, **kwargs):
+    instance.watchlist.save()
+    instance.superportfolio.save()
