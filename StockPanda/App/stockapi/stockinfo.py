@@ -1,7 +1,7 @@
 import urllib.request
 import urllib.parse
 import json
-import _thread
+import threading
 
 from decimal import *
 #todo - convert to restful api ???
@@ -100,7 +100,7 @@ def earnings(symbol):
 
 def historical_unthreaded_test(symbol):
     '''
-    Unthreaded for testing multiple API call 
+    Unthreaded for testing multiple API call
     '''
     pass
 
