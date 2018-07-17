@@ -1,12 +1,14 @@
 import urllib.request
 import urllib.parse
 import json
+import _thread
 
 from decimal import *
-#todo - change returns to dictionaries
+#todo - convert to restful api ???
 '''
 This module gets current stock information from IEX Developer platform
 Returns information in dictionaries/ list of dictionaries form to caller function
+For getting earnings, the function is multi-threaded to allow for multiple API calls simultaneously
 '''
 
 class UnknownStock(Exception):
@@ -95,6 +97,12 @@ def earnings(symbol):
 
     except Exception as e:
         print("Failed to retreive stock earnings information with symbol " + symbol + " " + str(e))
+
+def historical_unthreaded_test(symbol):
+    '''
+    Unthreaded for testing multiple API call 
+    '''
+    pass
 
 def historical(symbol):
     '''
