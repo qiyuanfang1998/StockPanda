@@ -6,7 +6,7 @@ from decimal import *
 #todo - change returns to dictionaries
 '''
 This module gets current stock information from IEX Developer platform
-Returns information in tuple form to caller function
+Returns information in dictionaries/ list of dictionaries form to caller function
 '''
 
 class UnknownStock(Exception):
@@ -21,7 +21,7 @@ def current_price(symbol):
         json_res = json.loads(res)
         if "Unknown symbol" in str(res):
             raise UnknownStock()
-        return (round(Decimal(json_res['delayedPrice']),2))
+        return {'current_price':round(Decimal(json_res['delayedPrice']),2)}
     except Exception as e:
         print("Failed to retreive stock delayed quote with symbol "+symbol+" "+str(e))
 
@@ -35,16 +35,16 @@ def company_info(symbol):
         json_res = json.loads(res)
         if "Unknown symbol" in str(res):
             raise UnknownStock()
-        return (
-            json_res['companyName'],
-            json_res['exchange'],
-            json_res['industry'],
-            json_res['website'],
-            json_res['description'],
-            json_res['CEO'],
-            json_res['issueType'],
-            json_res['sector']
-        )
+        return {
+            'company_name': json_res['companyName'],
+            'exchange': json_res['exchange'],
+            'industry': json_res['industry'],
+            'website': json_res['website'],
+            'description': json_res['description'],
+            'ceo': json_res['CEO'],
+            'issue_type': json_res['issueType'],
+            'sector': json_res['sector']
+        }
     except Exception as e:
         print("Failed to retreive stock company information with symbol " + symbol + " " + str(e))
 
@@ -58,10 +58,10 @@ def dividends(symbol):
         json_res = json.loads(res)
         if "Unknown symbol" in str(res):
             raise UnknownStock()
-        return(
-            round(Decimal(json_res[0]['amount']),2),
-            json_res[0]['type']
-        )
+        return{
+            'amount': round(Decimal(json_res[0]['amount']),2),
+            'type': json_res[0]['type']
+        }
     except Exception as e:
         print("Failed to retreive stock dividend information with symbol " + symbol + " " + str(e))
 
@@ -73,7 +73,7 @@ def earnings(symbol):
         T[0][3] = eps_year_ago_change_percent
         T[0][4] = eps_year_ago_estimated_change_percent,
         T[0][5] = fiscal_period)...
-        Nested tuple
+        dictionary list
     '''
     try:
         api_call = "https://api.iextrading.com/1.0/stock/" + str(symbol) + "/earnings"
@@ -84,10 +84,14 @@ def earnings(symbol):
         earnings_list = []
 
         for index in range(0,4):
-            nested_earnings_list = []
-            nested_earnings_list.extend([json_res['earnings'][index]['actualEPS'],json_res['earnings'][index]['estimatedEPS'],json_res['earnings'][index]['yearAgo'],round(Decimal(json_res['earnings'][index]['yearAgoChangePercent']),2),round(Decimal(json_res['earnings'][index]['estimatedChangePercent']),2),json_res['earnings'][index]['fiscalPeriod']])
-            earnings_list.append(nested_earnings_list)
-        return tuple(earnings_list)
+            nested_earnings_dict = {'actualEPS': json_res['earnings'][index]['actualEPS'],
+                'estimated_eps': json_res['earnings'][index]['estimatedEPS'],
+                'year_ago': json_res['earnings'][index]['yearAgo'],
+                'eps_year_ago_change_percent': round(Decimal(json_res['earnings'][index]['yearAgoChangePercent']),2),
+                'estimated_change_percent': round(Decimal(json_res['earnings'][index]['estimatedChangePercent']),2),
+                'fiscal_period': json_res['earnings'][index]['fiscalPeriod']}
+            earnings_list.append(nested_earnings_dict)
+        return earnings_list
 
     except Exception as e:
         print("Failed to retreive stock earnings information with symbol " + symbol + " " + str(e))
@@ -106,6 +110,7 @@ def historical(symbol):
         three_month_api_call = base_api_call + "/chart/3m"
         one_year_api_call = base_api_call + "/chart/1y"
         five_year_api_call = base_api_call + "/chart/5y"
+
         #todo
     except Exception as e:
         print("Failed to retreive stock historical information with symbol " + symbol + " " + str(e))
