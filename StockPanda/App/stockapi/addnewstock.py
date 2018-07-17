@@ -38,10 +38,10 @@ def stock(symbol):
     out_queue = queue.Queue()
 
     #threads to run
-    current_price_thread = sThread(current_price,symbol,out_queue,"current_price_thread")
-    company_info_thread = sThread(company_info,symbol,out_queue,"company_info_thread")
-    dividends_thread = sThread(dividends,symbol,out_queue,"dividends_thread")
-    earnings_thread = sThread(earnings,symbol,out_queue,"earnings_thread")
+    current_price_thread = sThread(current_price,symbol,out_queue,1)
+    company_info_thread = sThread(company_info,symbol,out_queue,2)
+    dividends_thread = sThread(dividends,symbol,out_queue,3)
+    earnings_thread = sThread(earnings,symbol,out_queue,4)
 
     current_price_thread.start()
     company_info_thread.start()
@@ -60,16 +60,18 @@ def stock(symbol):
 
     for x in range(0,4):
         res = out_queue.get()
-        if "current_price_thread" in res[0]:
+        if 1 == res[0]:
             current_price_res = res[1]
-        elif "company_info_thread" in res[0]:
+        elif 2 == res[0]:
             company_info_res = res[1]
-        elif "dividends_thread" in res[0]:
+        elif 3 == res[0]:
             dividends_res = res[1]
-        elif "earnings_thread" in res[0]:
+        elif 4 == res[0]:
             earnings_res = res[1]
 
     print(current_price_res)
     print(company_info_res)
     print(dividends_res)
     print(earnings_res)
+    # stock =  Stock(symbol = 'AAA')
+    # stock.save()
