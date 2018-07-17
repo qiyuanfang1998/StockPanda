@@ -29,11 +29,34 @@ class Stock(models.Model):
     amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     div_type = models.CharField(max_length = 50, default = "")
     #earnings information
-    actual_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    estimated_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    eps_year_ago = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    eps_year_ago_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    eps_year_ago_estimated_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+        #latest quarter
+    latest_actual_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    latest_estimated_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    latest_eps_year_ago = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    latest_eps_year_ago_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    latest_eps_year_ago_estimated_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    latest_fiscal_period =  models.CharField(max_length = 100, default = "")
+        #T-1 quarter
+    tminusone_actual_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusone_estimated_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusone_eps_year_ago = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusone_eps_year_ago_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusone_eps_year_ago_estimated_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusone_fiscal_period =  models.CharField(max_length = 100, default = "")
+        #T-2 quarter
+    tminustwo_actual_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminustwo_estimated_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminustwo_eps_year_ago = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminustwo_eps_year_ago_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminustwo_eps_year_ago_estimated_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminustwo_fiscal_period =  models.CharField(max_length = 100, default = "")
+        #T-3 quarter
+    tminusthree_actual_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusthree_estimated_eps = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusthree_eps_year_ago = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusthree_eps_year_ago_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusthree_eps_year_ago_estimated_change_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    tminusthree_fiscal_period =  models.CharField(max_length = 100, default = "")
 
     #stock value & last updated time
     current_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
