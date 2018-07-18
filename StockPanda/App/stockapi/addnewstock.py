@@ -3,6 +3,7 @@ from .stockinfo import *
 from App.sThread import sThread
 import threading
 import queue
+import datetime
 
 '''
 This module adds a new stock to the database using the stockinfo querying module
@@ -37,10 +38,11 @@ def stock(symbol):
         #dividends information
         amount = dividends_res['amount'],
         div_type = dividends_res['type'],
-        #earnings information
+        #earnings information todo
 
         #current_price information (added anyways on first addnewstock just for placeholding)
-        current_value = current_price_res['current_price']
+        current_value = current_price_res['current_price'],
+        last_updated_time =  datetime.datetime.now()
     )
     stock.save()
 

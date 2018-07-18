@@ -16,7 +16,7 @@ Portfolios MANY TO MANY ZERO OR MORE CryptoCurrency through CryptoCurrencyOwners
 
 class Stock(models.Model):
     #general stock information
-    symbol = models.CharField(max_length = 20, default = "",primary_key=True)
+    symbol = models.CharField(max_length = 20, default = "",unique = True)
     company_name = models.CharField(max_length = 50, default = "")
     exchange = models.CharField(max_length = 100, default = "")
     industry = models.CharField(max_length = 100, default = "")
@@ -62,21 +62,6 @@ class Stock(models.Model):
     current_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     last_updated_time = models.DateTimeField(auto_now_add = True)
 
-    # #stock performance
-    #     #stock amount changes information
-    # one_day_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_week_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # three_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_year_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # five_year_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    #     #stock percent change information
-    # one_day_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_week_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # three_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # five_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
 
 
     def __str__(self):
@@ -84,24 +69,7 @@ class Stock(models.Model):
 
 class CryptoCurrency(models.Model):
     #crypto attributes
-    currency_name = models.CharField(max_length = 50,default = "", primary_key=True)
-    # current_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # last_updated_time = models.DateTimeField(auto_now_add = True)
-    # #crypto performance
-    #     #crpyto amount changes information
-    # one_day_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_week_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # three_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_year_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # five_year_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    #     #crypto percent change information
-    # one_day_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_week_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # three_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # one_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    # five_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
+    currency_name = models.CharField(max_length = 50,default = "", unique=True)
 
     def __str__(self):
         return self.ticker
