@@ -3,8 +3,6 @@ from .stockinfo import *
 from App.sThread import sThread
 import threading
 import queue
-#for testing only
-import time
 
 '''
 This module adds a new stock to the database using the stockinfo querying module
@@ -17,9 +15,8 @@ def stock(symbol):
     calls getAll from stockinfo module and parses the information to create the new Stock.
     '''
 
-    start_time = time.time()
-
     getAll_res = getAll(symbol)
+
     current_price_res = getAll_res['current_price']
     company_info_res = getAll_res['company_info']
     dividends_res = getAll_res['dividends']
@@ -46,7 +43,6 @@ def stock(symbol):
         current_value = current_price_res['current_price']
     )
     stock.save()
-    print(time.time() - start_time)
 
 def stock_Batch(stocks):
     '''

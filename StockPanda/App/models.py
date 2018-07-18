@@ -16,7 +16,7 @@ Portfolios MANY TO MANY ZERO OR MORE CryptoCurrency through CryptoCurrencyOwners
 
 class Stock(models.Model):
     #general stock information
-    symbol = models.CharField(max_length = 20, default = "")
+    symbol = models.CharField(max_length = 20, default = "",primary_key=True)
     company_name = models.CharField(max_length = 50, default = "")
     exchange = models.CharField(max_length = 100, default = "")
     industry = models.CharField(max_length = 100, default = "")
@@ -84,7 +84,7 @@ class Stock(models.Model):
 
 class CryptoCurrency(models.Model):
     #crypto attributes
-    currency_name = models.CharField(max_length = 50)
+    currency_name = models.CharField(max_length = 50,default = "", primary_key=True)
     # current_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     # last_updated_time = models.DateTimeField(auto_now_add = True)
     # #crypto performance
