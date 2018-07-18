@@ -61,6 +61,11 @@ def dividends(symbol):
         json_res = json.loads(res)
         if "Unknown symbol" in str(res):
             raise UnknownStock()
+        if "[]" == str(res):
+            return {
+                'amount' : 0,
+                'type' : "No dividend"
+            }
         return{
             'amount': round(Decimal(json_res[0]['amount']),2),
             'type': json_res[0]['type']

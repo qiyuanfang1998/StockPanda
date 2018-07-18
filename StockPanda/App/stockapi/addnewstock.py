@@ -2,6 +2,8 @@ from App.models import *
 from .stockinfo import *
 import threading
 import queue
+#for testing only
+import time
 
 '''
 This module adds a new stock to the database using the stockinfo querying module
@@ -9,7 +11,7 @@ This module adds a new stock to the database using the stockinfo querying module
 
 class sThread(threading.Thread):
     '''
-    generic thread implementation to run stockinfo function inside python thread
+    generic thread implementation to run stockinfo functions inside python thread
     '''
     def __init__(self,func,symbol,out_queue,threadID):
         threading.Thread.__init__(self)
@@ -22,6 +24,24 @@ class sThread(threading.Thread):
          res_enum = (self.threadID, self.func(self.symbol))
          self.out_queue.put(res_enum)
 
+#TEST FUNCTION FOR UNTHREADED, NOT USED IN PRODUCTION
+#ABOUT 3.5X SLOWER WITH TIME MODULE TEST THAN THREADED VERSION
+def stock_unthreaded(symbol):
+    start_time = time.time()
+
+    current_price_res = current_price(symbol)
+    company_info_res = company_info(symbol)
+    dividends_res = company_info(symbol)
+    earnings_res = earnings(symbol)
+    print(current_price_res)
+    print(company_info_res)
+    print(dividends_res)
+    print(earnings_res)
+    print(time.time() - start_time)
+
+
+
+
 
 def stock(symbol):
     '''
@@ -33,6 +53,8 @@ def stock(symbol):
         earnings(symbol)
     and parses the information to create the new Stock.
     '''
+
+    start_time = time.time()
 
     #out Queue
     out_queue = queue.Queue()
@@ -73,5 +95,8 @@ def stock(symbol):
     print(company_info_res)
     print(dividends_res)
     print(earnings_res)
+
+    print(time.time() - start_time)
+
     # stock =  Stock(symbol = 'AAA')
     # stock.save()
