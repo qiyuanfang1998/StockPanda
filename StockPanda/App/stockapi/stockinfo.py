@@ -1,5 +1,6 @@
 import urllib.request
 import urllib.parse
+from App.sThread import sThread
 import json
 import threading
 import queue
@@ -7,7 +8,7 @@ import queue
 from decimal import *
 #todo - convert to restful api ???
 '''
-This module gets current stock information from IEX Developer platform
+This multi-threaded module gets current stock information from IEX Developer platform
 Returns information in dictionaries/ list of dictionaries form to caller function
 For getting earnings, the function is multi-threaded to allow for multiple API calls simultaneously
 '''
@@ -128,3 +129,49 @@ def historical(symbol):
         #todo
     except Exception as e:
         print("Failed to retreive stock historical information with symbol " + symbol + " " + str(e))
+
+def getAll(symbol):
+    '''
+    Aggregate threaded function, used in addnewstock, updatestock
+    returns dict with keys current_price, company_info, dividends, earnings
+    which are nested dictionaries
+    '''
+    #out Queue
+    out_queue = queue.Queue()
+    #threads to run
+    current_price_thread = sThread.sThread(current_price,symbol,out_queue,1)
+    company_info_thread = sThread.sThread(company_info,symbol,out_queue,2)
+    dividends_thread = sThread.sThread(dividends,symbol,out_queue,3)
+    earnings_thread = sThread.sThread(earnings,symbol,out_queue,4)
+
+    current_price_thread.start()
+    company_info_thread.start()
+    dividends_thread.start()
+    earnings_thread.start()
+
+    current_price_thread.join()
+    company_info_thread.join()
+    dividends_thread.join()
+    earnings_thread.join()
+
+    current_price_res = None
+    company_info_res = None
+    dividends_res = None
+    earnings_res = None
+
+    for x in range(0,4):
+        res = out_queue.get()
+        if 1 == res[0]:
+            current_price_res = res[1]
+        elif 2 == res[0]:
+            company_info_res = res[1]
+        elif 3 == res[0]:
+            dividends_res = res[1]
+        elif 4 == res[0]:
+            earnings_res = res[1]
+    return {
+        'current_price': current_price_res,
+        'company_info': company_info_res,
+        'dividends': dividends_res,
+        'earnings': earnings_res
+    }
