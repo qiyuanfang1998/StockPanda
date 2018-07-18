@@ -6,7 +6,7 @@ import threading
 import queue
 
 from decimal import *
-#todo - convert to restful api ???
+
 '''
 This multi-threaded module gets current stock information from IEX Developer platform
 Returns information in dictionaries/ list of dictionaries form to caller function
