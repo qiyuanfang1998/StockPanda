@@ -6,13 +6,15 @@
     <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{%  static 'img/panda.ico' %}">
     {% block stylesheet %}{% endblock %}  <!-- HERE -->
   </head>
   <body>
     {% block body %}  <!-- HERE -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'home' %}">Stock Panda</a>
+          <a class="navbar-brand" href="{% url 'home' %}"><img src = "{%static 'img/panda48.png' %}"/>Stock Panda</a>
         </div>
       </nav>
       <div class="container">
