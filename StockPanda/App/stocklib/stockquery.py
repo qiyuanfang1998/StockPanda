@@ -20,24 +20,30 @@ def get(symbol):
     '''
     return Stock.objects.get(symbol = symbol)
 
-def similar_exchange(stock):
+def get_similar_exchange(stock):
     '''
     Returns list of Stock objects with exchanges = stock.exchange
     '''
     return Stock.objects.filter(exchange = stock.exchange)
     
 
-def similar_industry(stock):
+def get_similar_industry(stock):
     '''
     Returns list of Stock objects with industry = stock.industry
     '''
     return Stock.objects.filter(industry = stock.industry)
 
-def similar_sector(stock):
+def get_similar_sector(stock):
     '''
     Returns list of Stock objects with sector = stock.sector
     '''
     return Stock.objects.filter(sector = stock.sector)
 
+def get_reccomendations(stock):
+    '''
+    Return list of Stock objects based on the following criteria:
+        Stock popularity 
+    '''
+    pass
 
 
