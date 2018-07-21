@@ -1,8 +1,5 @@
 from App.models import *
 from .stockinfo import *
-from App.sThread import sThread
-import threading
-import queue
 import datetime
 
 '''
