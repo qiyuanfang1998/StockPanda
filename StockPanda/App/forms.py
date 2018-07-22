@@ -11,11 +11,10 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2','first_name','last_name')
 
     def save(self, commit = True):
-        user = super(RegisterForm, self).save(commit = False)
+        user = super(SignUpForm, self).save(commit = False)
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
         user.email = self.cleaned_data["email"]
-        clean_email(self)
         if commit:
             user.save()
         return user
@@ -23,5 +22,5 @@ class SignUpForm(UserCreationForm):
     def clean_email(self):
         data = self.cleaned_data['email']
         if User.objects.filter(email=data).exists():
-            raise forms.ValidationError("This email already used")
+            raise forms.ValidationError("This email is already in use")
         return data

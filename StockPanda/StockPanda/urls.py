@@ -21,7 +21,7 @@ from App import views
 
 urlpatterns = [
     #admin interface
-    url('admin/', admin.site.urls),
+    url('adminforpandas/', admin.site.urls),
     #homepage interface
     url(r'^$', views.home, name='home'),
     #signup interface
@@ -29,6 +29,10 @@ urlpatterns = [
     #login interface
     url(r'login/$', auth_views.login, {'template_name': '../templates/login.html'} , name = 'login'),
     #logout interface
-    url(r'logout/$', auth_views.logout, {'next_page':'/'},name = 'logout')
+    url(r'logout/$', auth_views.logout, {'next_page':'/'},name = 'logout'),
+    #about interface
+    url(r'about/$',views.about, name = "about"),
+    #contact interface
+    url(r'contact/$',views.contact, name = "contact")
 
 ]
