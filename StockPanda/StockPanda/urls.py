@@ -26,6 +26,10 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     #signup interface
     url(r'^signup/$', views.signup, name='signup'),
+    #authenticate email interface
+
+    #todo
+
     #login interface
     url(r'login/$', auth_views.login, {'template_name': '../templates/login.html'} , name = 'login'),
     #logout interface
@@ -33,6 +37,19 @@ urlpatterns = [
     #about interface
     url(r'about/$',views.about, name = "about"),
     #contact interface
-    url(r'contact/$',views.contact, name = "contact")
+    url(r'contact/$',views.contact, name = "contact"),
+
+    #stock/crypto search interface
+    url(r'search/$',views.search, name = "search"),
+    #overview interface
+    url(r'overview/$',views.overview, name = "overview"),
+    #portfolios interface
+    url(r'portfolios/$',views.portfolios, name = "portfolios"),
+    #markets interface
+    url(r'markets/$',views.markets, name = "markets"),
+    #discover interface
+    url(r'discover/$',views.discover, name = "discover"),
+    #analyze interface
+    url(r'analyze/$',views.analyze, name = "analyze")
 
 ]

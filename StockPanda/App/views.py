@@ -30,4 +30,29 @@ def about(request):
 def contact(request):
     return render(request,'contact.html')
 
+#search page view
+def search(request):
+    return render(request,'search.html')
+
+#overview page view
+def overview(request):
+    return render(request,'overview.html')
+
+#portfolios page view
+def portfolios(request):
+    return render(request,'portfolios.html')
+
+#markets page view
+def markets(request):
+    return render(request,'markets.html')
+
+#discover page view
+def discover(request):
+    return render(request,'discover.html')
+
+#analyze
+def analyze(request):
+    return render(request,'analyze.html')
+
+
 
