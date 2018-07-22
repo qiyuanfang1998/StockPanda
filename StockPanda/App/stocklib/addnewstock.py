@@ -7,7 +7,7 @@ This module adds a new stock to the database using the stockinfo querying module
 Uses sThread module for multithreading API calls
 '''
 
-def stock(symbol):
+def new_stock(symbol):
     '''
     This function takes symbol s and creates a new Stock in the database
     calls getAll from stockinfo module and parses the information to create the new Stock.

@@ -11,22 +11,26 @@ new_portfolio(User) :- creates new portfolio for User, params: User
 
 '''
 
-def auth(username,password):
+#shell use only
+def test_auth(username,password):
     user = authenticate(username = username, password = password)
     if user is not None:
         print("Authenticated")
     else:
         print("User does not exist")
 
-def new_user(username,email,password):
+#for shell use only
+def test_new_user(username,email,password):
     user = User.objects.create_user(username,email,password)
     user.save()
 
+#production use
 def change_password(User,new_password):
     User.set_password(new_password)
     User.save()
 
-def user_superportfolio(User):
+
+def get_user_superportfolio(User):
     return 
 
 

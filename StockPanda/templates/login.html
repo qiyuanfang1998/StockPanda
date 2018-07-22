@@ -3,10 +3,11 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+   <br>
   <h2>Login</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+    {% include 'includes/form.html' %}
+    <button type = "submit" class = "btn btn-outline-success my-2 my-sm-0"> Login</button>
   </form>
 {% endblock %}

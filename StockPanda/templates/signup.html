@@ -2,11 +2,12 @@
 
 {%block content%}
 <div class = "container">
+  <br>
   <h2> Sign Up</h2>
   <form method = "post" novalidate>
     {% csrf_token %}
-    {{form.as_p}}
-    <button type = "submit" class = "btn btn-primary"> Create account</button>
+    {% include 'includes/form.html' %}
+    <button type = "submit" class = "btn btn-outline-success my-2 my-sm-0"> Create account</button>
   </form>
 </div>
 {% endblock %}
