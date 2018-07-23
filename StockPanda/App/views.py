@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login as auth_login
 from .forms import SignUpForm
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 # home-splashpage view
 def home(request):
@@ -21,6 +23,16 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+#user name validation   -- not working , not used currently for ajax val
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)
 
 #login, logout using default django views
 
@@ -60,6 +72,13 @@ def analyze(request):
 #account
 def account(request):
     return render(request,'account.html')
+
+#404 view
+def view_404(request):
+    response = render_to_response('404.html', {},
+                              context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
 
 
 

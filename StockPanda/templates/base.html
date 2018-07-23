@@ -21,19 +21,19 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               {% if not user.is_authenticated %}
-              <li class="nav-item active" style="padding: 0px 10px;">
+              <li class="active" style="padding: 0px 10px;">
                 <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                 <a class="nav-link" href="{% url 'login' %}">Log In</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                 <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                 <a class="nav-link" href="{% url 'about' %}">About</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
               {% else %}
@@ -67,7 +67,7 @@
           </div>
         </div>
       </nav>
-      <!--Secondary navbar-->
+      <!--Secondary navbar dummy block-->
       {% block secondnav %}
       {% endblock %}
       <!--Centered page container-->
@@ -75,6 +75,20 @@
         {% block content %}
         {% endblock %}
       </div>
+      <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
+      <!-- This script changes the active class of navbars (both primary and secondary)-->
+      <script>
+          $(".navbar-nav li").on("click", function() {
+            $(".navbar-nav li").removeClass("active");
+            $(this).addClass("active");
+          });
+      </script>
+    
+      {% block javascript %}
+      <!-- All JavaScript .. AJAX .. JQUERY goes here-->
+      {% endblock %}
     {% endblock body %} 
   </body>
 </html>

@@ -1,7 +1,7 @@
 {% extends 'secondary_nav_base.html' %}
 
 {% block secondnavcontent %}
-    <li class = "nav-item">
+    <li class = "nav-item active">
         <a class="nav-link" href="#">Account Information</a>
     </li>
     <li class = "nav-item">
@@ -10,5 +10,10 @@
 {% endblock %}
 
 {% block content %}
+<p>{{request.path}}</p>
+
+{% endblock %}
+
+{% block javascript %}
 
 {% endblock %}

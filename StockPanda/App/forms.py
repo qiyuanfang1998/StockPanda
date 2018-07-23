@@ -3,6 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
+    '''
+    This form extends django.contrib.auth.forms.UserCreationForm
+    It adds an email field, and a first name, last name field to
+    create a User model from django.contrib.auth.models with those
+    attributes.
+    '''
     email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
     first_name = forms.CharField(max_length = 30, required = True)
     last_name = forms.CharField(max_length= 150, required = True)
@@ -24,3 +30,10 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(email=data).exists():
             raise forms.ValidationError("This email is already in use")
         return data
+
+class AccountInformationChangeForm(forms.Form):
+    '''
+    This form extends django.forms.Form
+    It's purpose is to allow the User to change account info
+    It is served in the account.html page with AJAX
+    '''

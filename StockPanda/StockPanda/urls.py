@@ -19,6 +19,9 @@ from django.conf.urls import url
 
 from App import views
 
+handler404 = 'App.views.view_404' 
+
+
 urlpatterns = [
     #admin interface
     url('adminforpandas/', admin.site.urls),
@@ -26,6 +29,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     #signup interface
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^ajax/validate_username/$', views.validate_username, name='validate_username'),
     #authenticate email interface
 
     #todo
