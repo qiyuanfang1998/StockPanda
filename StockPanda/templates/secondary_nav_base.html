@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block secondnav %}
+<nav class = "navbar navbar-expand-sm bg-light navbar-light">
+ <div class = "container">
+    <ul class="navbar-nav">
+     {% block secondnavcontent %}
+     <!-- secondary nav bar content goes here -->
+     {% endblock %}
+    </ul>
+ </div>
+</nav>
+{% endblock %}
