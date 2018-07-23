@@ -5,7 +5,10 @@ from .forms import SignUpForm
 
 # home-splashpage view
 def home(request):
-    return render(request,'home.html')
+    if request.user.is_authenticated:
+        return render(request,'overview.html')
+    else:
+        return render(request,'home.html')
 
 #sign up view
 def signup(request):
@@ -14,7 +17,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('home')
+            return redirect('overview')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
@@ -53,6 +56,10 @@ def discover(request):
 #analyze
 def analyze(request):
     return render(request,'analyze.html')
+
+#account
+def account(request):
+    return render(request,'account.html')
 
 
 

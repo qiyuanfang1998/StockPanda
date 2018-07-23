@@ -50,6 +50,8 @@ urlpatterns = [
     #discover interface
     url(r'discover/$',views.discover, name = "discover"),
     #analyze interface
-    url(r'analyze/$',views.analyze, name = "analyze")
+    url(r'analyze/$',views.analyze, name = "analyze"),
+    #account interface
+    url(r'account/$',views.account, name = "account")
 
 ]
