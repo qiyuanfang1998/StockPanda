@@ -1,0 +1,177 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Stock Panda{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/app.css' %}"> -->
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{%  static 'img/panda.ico' %}">
+    {% block stylesheet %}{% endblock %}  
+  </head>
+  <body>
+    {% block body %}  
+      <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}"><img src = "{%static 'img/panda.svg' %}" width="36" height="36"/></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              {% if not user.is_authenticated %}
+              <li class="active" style="padding: 0px 10px;">
+                <a class="nav-link" id = "home" href="{%  url 'home' %}">Home </a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                <a class="nav-link" id = "login" href="#">Log In</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                <a class="nav-link" id = "signup" href="#">Sign Up</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                <a class="nav-link" id = "about" href="#">About</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "contact" href="#">Contact</a>
+                </li>
+              {% else %}
+              <li class="active" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "overview" href="#">Overview</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "portfolios" href="#">Portfolios</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "markets" href="#">Markets</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "discover" href="#">Discover</a>
+                </li>
+              <li class="" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "analyze" href="#">Analyze</a>
+              </li>
+              <li class="" style="padding: 0px 10px;">
+                  <a class="nav-link" id = "account" href="#">Account</a>
+            </li> 
+            <li class="" style="padding: 0px 10px;">
+                <a class="nav-link" id = "logout" href="{% url 'logout' %}">Log Out</a>
+        </li>                         
+              {% endif %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <!--Secondary navbar dummy block-->
+      <div id = "secondnav">
+          {% block secondnav %}
+          {% endblock %}
+      </div>
+      <!--Centered page container-->
+      <div class="container">
+        <div id = "load">
+        {% block content %}
+        {% endblock %}
+      </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
+      <!-- This script changes the active class of navbars (both primary and secondary)-->
+      <script>
+          $(".navbar-nav li").on("click", function() {
+            $(".navbar-nav li").removeClass("active");
+            $(this).addClass("active");
+          });
+      </script>
+      <!-- This script uses AJAX for dyanamic loading of main app page contents for
+           saving bandwidth and saving the earth blah blah blah
+          TODO: FIX BUG AFFECTING BACK FUNCTION WITH NAVBAR CAUSE: REPLACESTATE /-->
+      <script>
+      $('#login').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, "/");
+        $('#load').load('login #load',function(){
+          window.history.pushState({}, null, 'login/');
+        });
+        });
+      $('#signup').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('signup #load',function(){
+          window.history.pushState({}, null, 'signup/');
+        });
+      });
+      $('#about').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('about #load',function(){
+          window.history.pushState({}, null, 'about/');
+        });
+      });
+      $('#contact').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('contact #load',function(){
+          window.history.pushState({}, null, 'contact/');
+        });
+      });
+      $('#overview').click(function(){
+        event.preventDefault();
+        $('#secondnav').empty(function(){
+          history.replaceState({}, null, '/');
+        $('#load').load('overview #load',function(){
+          window.history.pushState({}, null, 'overview/');
+        });
+        });
+      });
+      $('#portfolios').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('portfolios #load',function(){
+          window.history.pushState({}, null, 'portfolios/');
+        });
+      });
+      $('#markets').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('markets #load',function(){
+          window.history.pushState({}, null, 'markets/');
+        });
+      });
+      $('#discover').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('discover #load',function(){
+          window.history.pushState({}, null, 'discover/');
+        });
+      });
+      $('#analyze').click(function(){
+          event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('analyze #load',function(){
+          window.history.pushState({}, null, 'analyze/');
+        });
+      });
+      $('#account').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('account #load',function(){
+        $('#secondnav').load('account #secondnav',function(){
+          window.history.pushState({}, null, 'account/');
+        });
+        });
+      });
+      </script>
+    
+      {% block javascript %}
+      <!-- All JavaScript .. AJAX .. JQUERY goes here-->
+      {% endblock %}
+    {% endblock body %} 
+  </body>
+</html>
