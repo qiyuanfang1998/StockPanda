@@ -22,40 +22,40 @@
             <ul class="navbar-nav mr-auto">
               {% if not user.is_authenticated %}
               <li class="active" style="padding: 0px 10px;">
-                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" id = "home" href="{%  url 'home' %}">Home </a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                <a class="nav-link" id = "login" href="#">Log In</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                <a class="nav-link" id = "signup" href="#">Sign Up</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
+                <a class="nav-link" id = "about" href="#">About</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                  <a class="nav-link" id = "contact" href="#">Contact</a>
                 </li>
               {% else %}
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="active" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'overview' %}">Overview</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'portfolios' %}">Portfolios</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'markets' %}">Markets</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'discover' %}">Discover</a>
                 </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'analyze' %}">Analyze</a>
               </li>
-              <li class="nav-item" style="padding: 0px 10px;">
+              <li class="" style="padding: 0px 10px;">
                   <a class="nav-link" href="{% url 'account' %}">Account</a>
             </li> 
-            <li class="nav-item" style="padding: 0px 10px;">
+            <li class="" style="padding: 0px 10px;">
                 <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </li>                         
               {% endif %}
@@ -72,8 +72,10 @@
       {% endblock %}
       <!--Centered page container-->
       <div class="container">
+        <div id = "load">
         {% block content %}
         {% endblock %}
+      </div>
       </div>
       <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
       <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -84,6 +86,38 @@
             $(".navbar-nav li").removeClass("active");
             $(this).addClass("active");
           });
+      </script>
+      <!-- This script uses AJAX for dyanamic loading of main app page contents for
+           saving bandwidth and saving the earth blah blah blah-->
+      <script>
+      $('#login').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('login #load',function(){
+          window.history.pushState({}, null, 'login/');
+        });
+        });
+      $('#signup').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('signup #load',function(){
+          window.history.pushState({}, null, 'signup/');
+        });
+      });
+      $('#about').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('about #load',function(){
+          window.history.pushState({}, null, 'about/');
+        });
+      });
+      $('#contact').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('contact #load',function(){
+          window.history.pushState({}, null, 'contact/');
+        });
+      });
       </script>
     
       {% block javascript %}
