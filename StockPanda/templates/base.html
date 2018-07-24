@@ -38,25 +38,25 @@
                 </li>
               {% else %}
               <li class="active" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'overview' %}">Overview</a>
+                  <a class="nav-link" id = "overview" href="#">Overview</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'portfolios' %}">Portfolios</a>
+                  <a class="nav-link" id = "portfolios" href="#">Portfolios</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'markets' %}">Markets</a>
+                  <a class="nav-link" id = "markets" href="#">Markets</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'discover' %}">Discover</a>
+                  <a class="nav-link" id = "discover" href="#">Discover</a>
                 </li>
               <li class="" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'analyze' %}">Analyze</a>
+                  <a class="nav-link" id = "analyze" href="#">Analyze</a>
               </li>
               <li class="" style="padding: 0px 10px;">
-                  <a class="nav-link" href="{% url 'account' %}">Account</a>
+                  <a class="nav-link" id = "account" href="#">Account</a>
             </li> 
             <li class="" style="padding: 0px 10px;">
-                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                <a class="nav-link" id = "logout" href="{% url 'logout' %}">Log Out</a>
         </li>                         
               {% endif %}
             </ul>
@@ -68,8 +68,10 @@
         </div>
       </nav>
       <!--Secondary navbar dummy block-->
-      {% block secondnav %}
-      {% endblock %}
+      <div id = "secondnav">
+          {% block secondnav %}
+          {% endblock %}
+      </div>
       <!--Centered page container-->
       <div class="container">
         <div id = "load">
@@ -88,11 +90,12 @@
           });
       </script>
       <!-- This script uses AJAX for dyanamic loading of main app page contents for
-           saving bandwidth and saving the earth blah blah blah-->
+           saving bandwidth and saving the earth blah blah blah
+          TODO: FIX BUG AFFECTING BACK FUNCTION WITH NAVBAR CAUSE: REPLACESTATE /-->
       <script>
       $('#login').click(function(){
         event.preventDefault();
-        history.replaceState({}, null, '/');
+        history.replaceState({}, null, "/");
         $('#load').load('login #load',function(){
           window.history.pushState({}, null, 'login/');
         });
@@ -116,6 +119,52 @@
         history.replaceState({}, null, '/');
         $('#load').load('contact #load',function(){
           window.history.pushState({}, null, 'contact/');
+        });
+      });
+      $('#overview').click(function(){
+        event.preventDefault();
+        $('#secondnav').empty(function(){
+          history.replaceState({}, null, '/');
+        $('#load').load('overview #load',function(){
+          window.history.pushState({}, null, 'overview/');
+        });
+        });
+      });
+      $('#portfolios').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('portfolios #load',function(){
+          window.history.pushState({}, null, 'portfolios/');
+        });
+      });
+      $('#markets').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('markets #load',function(){
+          window.history.pushState({}, null, 'markets/');
+        });
+      });
+      $('#discover').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('discover #load',function(){
+          window.history.pushState({}, null, 'discover/');
+        });
+      });
+      $('#analyze').click(function(){
+          event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('analyze #load',function(){
+          window.history.pushState({}, null, 'analyze/');
+        });
+      });
+      $('#account').click(function(){
+        event.preventDefault();
+        history.replaceState({}, null, '/');
+        $('#load').load('account #load',function(){
+        $('#secondnav').load('account #secondnav',function(){
+          window.history.pushState({}, null, 'account/');
+        });
         });
       });
       </script>

@@ -37,3 +37,4 @@ class AccountInformationChangeForm(forms.Form):
     It's purpose is to allow the User to change account info
     It is served in the account.html page with AJAX
     '''
+    pass
