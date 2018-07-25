@@ -10,9 +10,16 @@
 {% endblock %}
 
 {% block content %}
-
+<form method = "post" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type = "submit" class = "btn btn-outline-success my-2 my-sm-0"> Update account</button>
 {% endblock %}
 
 {% block javascript %}
+<script>
+    // This Script asynchonously loads the Account Information
+    // tab and the Security tab
 
+</script>
 {% endblock %}
