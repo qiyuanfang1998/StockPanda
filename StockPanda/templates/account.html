@@ -2,10 +2,10 @@
 
 {% block secondnavcontent %}
     <li class = "nav-item active">
-        <a class="nav-link" href="#">Account Information</a>
+        <a class="nav-link" href="{% url 'account-information' %}">Account Information</a>
     </li>
     <li class = "nav-item">
-        <a class="nav-link" href="#">Security</a>
+        <a class="nav-link" href="{% url 'security' %}">Security</a>
     </li>
 {% endblock %}
 
@@ -17,9 +17,8 @@
 {% endblock %}
 
 {% block javascript %}
+
 <script>
-    // This Script asynchonously loads the Account Information
-    // tab and the Security tab
 
 </script>
 {% endblock %}

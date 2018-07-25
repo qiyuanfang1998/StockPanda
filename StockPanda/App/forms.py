@@ -34,18 +34,18 @@ class SignUpForm(UserCreationForm):
 class AccountInformationChangeForm(forms.ModelForm):
     '''
     This form extends django.forms.ModelForm
-    It's purpose is to allow the User to change account info
+    It's purpose is to allow the User to change account info [email, first name, last name]
     It is served by the respective function in views.py to the account.html page with AJAX
     asynchronously
     '''
-    username = forms.CharField()
+
     first_name = forms.CharField(max_length = 30, required = True)
     last_name = forms.CharField(max_length = 150, required = True)
     email = forms.CharField(max_length = 254, required = True, widget = forms.EmailInput())
 
     class Meta:
         model = User
-        fields = ('username','email','first_name','last_name')        
+        fields = ('email','first_name','last_name')        
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
@@ -54,14 +54,10 @@ class AccountInformationChangeForm(forms.ModelForm):
 
     def save(self, commit = True):
         user = self.request.user
-        if user.username == self.cleaned_data["username"]:
-            pass
-        else:
-            user.username = self.cleaned_data["username"]
         
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
-        user.email = self.cleaned_email["email"]
+        user.email = self.cleaned_data["email"]
         if commit :
             user.save()
         return user

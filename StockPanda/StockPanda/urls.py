@@ -55,7 +55,9 @@ urlpatterns = [
     url(r'discover/$',views.discover, name = "discover"),
     #analyze interface
     url(r'analyze/$',views.analyze, name = "analyze"),
-    #account interface
-    url(r'account/$',views.account, name = "account")
+    #account - information interface
+    url(r'account/$',views.account, name = "account"),
+    url(r'account/account-information/$', views.account, name = "account-information"),
+    url(r'account/security/$', views.account, name = "security")
 
 ]
