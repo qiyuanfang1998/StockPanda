@@ -1,11 +1,11 @@
 {% extends 'secondary_nav_base.html' %}
 
 {% block secondnavcontent %}
-    <li class = "nav-item active">
-        <a class="nav-link" href="{% url 'account-information' %}">Account Information</a>
+    <li class = "">
+        <a class="nav-link" id = "account-information" href="{% url 'account-information' %}">Account Information</a>
     </li>
-    <li class = "nav-item">
-        <a class="nav-link" href="{% url 'security' %}">Security</a>
+    <li class = "">
+        <a class="nav-link" id = "account-security" href="{% url 'security' %}">Security</a>
     </li>
 {% endblock %}
 
@@ -18,7 +18,19 @@
 
 {% block javascript %}
 
+<!-- Navbar active script-->
+{% if request.get_full_path == '/account/account-information/' %}
 <script>
-
+    $(".navbar-nav li").removeClass("active");
+    $("#account").addClass("active");
+    $("#account-information").addClass("active");
 </script>
+{% elif request.get_full_path == '/account/security/' %}
+<script>
+    $(".navbar-nav li").removeClass("active");
+    $("#account").addClass("active");
+    $("#account-security").addClass("active");
+</script>
+{% endif %}
+
 {% endblock %}
