@@ -8,6 +8,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.shortcuts import get_object_or_404
+
+
+#models
+from .models import *
 
 # home-splashpage view
 def home(request):
@@ -58,11 +63,18 @@ def search(request):
 
 #overview page view
 def overview(request):
-    return render(request,'overview.html')
+    user = request.user
+    superportfolio = user.superportfolio
+    return render(request,'overview.html' ,{'superportfolio': superportfolio})
 
 #portfolios page view
+    #default view -- no specific portfolio
 def portfolios(request):
-    return render(request,'portfolios.html')
+    return render(request, 'portfolios.html')
+    #specific portfolio view, selected from secondary nav bar -- will redirect to 404 page if pk does not match
+def portfolios_view(request, pk):
+    portfolio =  get_object_or_404(Portfolio, pk=pk)
+    return render(request,'portfolios.html',{'portfolio' : portfolio})
 
 #markets page view
 def markets(request):

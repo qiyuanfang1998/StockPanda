@@ -32,8 +32,6 @@ urlpatterns = [
     url(r'^ajax/validate_username/$', views.validate_username, name='validate_username'),
     #authenticate email interface
 
-    #todo
-
     #login interface
     url(r'login/$', auth_views.login, {'template_name': '../templates/login.html'} , name = 'login'),
     #logout interface
@@ -49,6 +47,7 @@ urlpatterns = [
     url(r'overview/$',views.overview, name = "overview"),
     #portfolios interface
     url(r'portfolios/$',views.portfolios, name = "portfolios"),
+    url(r'portfolios/(?P<pk>\d+)/$',views.portfolios_view, name = "portfolios_view"),
     #markets interface
     url(r'markets/$',views.markets, name = "markets"),
     #discover interface

@@ -1,5 +1,14 @@
+<!--
+    Django values:
+        superportfolio : User's superportfolio
+            :- total_value
+            :- owned_by
+            :- 
+-->
 {% extends 'base.html' %}
 
 {% block content %}
+
+<p> Value: {{superportfolio.total_value}}</p>
 
 {% endblock %}
