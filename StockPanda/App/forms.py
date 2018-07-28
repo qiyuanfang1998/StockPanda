@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+'''
+This subset of forms is for User Sign Up section of the website
+'''
 class SignUpForm(UserCreationForm):
     '''
     This form extends django.contrib.auth.forms.UserCreationForm
@@ -31,12 +33,13 @@ class SignUpForm(UserCreationForm):
             raise forms.ValidationError("This email is already in use")
         return data
 
+'''
+This subset of forms is for the Account Nav Section of the website
+'''
 class AccountInformationChangeForm(forms.ModelForm):
     '''
     This form extends django.forms.ModelForm
     It's purpose is to allow the User to change account info [email, first name, last name]
-    It is served by the respective function in views.py to the account.html page with AJAX
-    asynchronously
     '''
 
     first_name = forms.CharField(max_length = 30, required = True)
@@ -62,15 +65,14 @@ class AccountInformationChangeForm(forms.ModelForm):
             user.save()
         return user
 
-    # def clean_username(self):
-    #     username = self.cleaned_data['username']
-    #     if User.objects.filter(username = username).exists() and not username == self.request.user.username:
-    #         raise forms.ValidationError("This Username is already in use")
-    #     return username
-
     def clean_email(self):
         email = self.cleaned_data['email']
         if User.objects.filter(email = email).exists() and not email == self.request.user.email:
             raise forms.ValidationError("This email is already in use")
         return email
+
+class AccountSecurityChangeForm(forms.Form):
+    #deprecated, using built in Django password change form implemented in views.py
+    pass
+    
 

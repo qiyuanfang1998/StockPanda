@@ -83,7 +83,19 @@
       <script src="{% static 'js/bootstrap.min.js' %}"></script>
       <script src="{% static 'js/app.js' %}"></script>      
       
+      <!-- Script for messages passed to template by Django messaging system-->
+
+      {% if messages %}
+      {% for message in messages %}
+        <script>
+          var message = "{{ message }}";
+          window.onload = function () { alert(message) }
+        </script>
+      {% endfor %}
+    {% endif %}
+
       <!-- Django template if - else to determine active page for active class-->
+      <!-- Probably bad code, refactor when have the time-->
       {% if request.get_full_path == '/'%}
       <script>
           $(".navbar-nav li").removeClass("active");

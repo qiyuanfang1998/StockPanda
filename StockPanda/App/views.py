@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login as auth_login
-from .forms import SignUpForm, AccountInformationChangeForm
+from .forms import SignUpForm
+from .forms import AccountInformationChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -72,16 +76,33 @@ def discover(request):
 def analyze(request):
     return render(request,'analyze.html')
 
-#account
+#account-information
 def account(request):
     if request.method == 'POST':
         form = AccountInformationChangeForm(request.POST, request = request, initial = {'username': request.user.username , 'first_name': request.user.first_name, 'last_name': request.user.last_name,'email': request.user.email})
         if form.is_valid():
             user = form.save()
+            messages.success(request, 'Your Account information was succesfully updated')
             return redirect('account')
+        else:
+            messages.error(request, 'Account information update failed. Please try again')            
     else:
         form = AccountInformationChangeForm(request = request,initial = {'username': request.user.username , 'first_name': request.user.first_name, 'last_name': request.user.last_name,'email': request.user.email})
 
+    return render(request, 'account.html', {'form': form})
+#account-security -- using built in Django PasswordChangeForm instead of previously used self defined form in forms.py
+def account_security(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('security')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = PasswordChangeForm(request.user)
     return render(request, 'account.html', {'form': form})
 
 #404 view

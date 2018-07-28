@@ -58,6 +58,6 @@ urlpatterns = [
     #account - information interface
     url(r'account/$',views.account, name = "account"),
     url(r'account/account-information/$', views.account, name = "account-information"),
-    url(r'account/security/$', views.account, name = "security")
+    url(r'account/security/$', views.account_security, name = "security")
 
 ]
