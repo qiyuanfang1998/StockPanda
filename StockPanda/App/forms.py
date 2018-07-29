@@ -74,5 +74,13 @@ class AccountInformationChangeForm(forms.ModelForm):
 class AccountSecurityChangeForm(forms.Form):
     #deprecated, using built in Django password change form implemented in views.py
     pass
+
+'''
+This subset of forms is for the Overview section of the website
+'''
+
+'''
+This subset of forms is for the Portfolio section of the website
+'''
     
 

@@ -72,6 +72,10 @@ def overview(request):
 def portfolios(request):
     return render(request, 'portfolios.html')
     #specific portfolio view, selected from secondary nav bar -- will redirect to 404 page if pk does not match
+
+def new_portfolio(request):
+    pass
+
 def portfolios_view(request, pk):
     portfolio =  get_object_or_404(Portfolio, pk=pk)
     return render(request,'portfolios.html',{'portfolio' : portfolio})

@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'overview/$',views.overview, name = "overview"),
     #portfolios interface
     url(r'portfolios/$',views.portfolios, name = "portfolios"),
+    url(r'portfolios/new/$', views.new_portfolio, name = "new_portfolio"),
     url(r'portfolios/(?P<pk>\d+)/$',views.portfolios_view, name = "portfolios_view"),
     #markets interface
     url(r'markets/$',views.markets, name = "markets"),
