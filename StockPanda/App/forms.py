@@ -109,13 +109,8 @@ class PortfolioCreationForm(forms.Form):
             portfolio.save()
         return portfolio
 
-    def clean_name(self):
+    def clean_portfolio_name(self):
         pname = self.cleaned_data['portfolio_name']
         if self.superportfolio.portfolios.all().filter(name = pname):
             raise forms.ValidationError("You already have a portfolio with this name")
         return pname 
-
-
-
-
-
