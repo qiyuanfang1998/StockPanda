@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login as auth_login
 from .forms import SignUpForm
 from .forms import AccountInformationChangeForm
+from .forms import PortfolioCreationForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -76,7 +77,18 @@ def portfolios(request):
     return render(request, 'portfolios.html', {'username' : username, 'portfolios': portfolios})
 
 def new_portfolio(request):
-    pass
+    if request.method == 'POST':
+        form = PortfolioCreationForm(request.POST, request = request)
+        if form.is_valid():
+            portfolio = form.save()
+            messages.success(request, 'New Portfolio was succesfully created')
+            return redirect('portfolios')
+        else:
+            messages.error(request, 'Portfolio creation encountered an error')
+    else:
+        form = PortfolioCreationForm(request = request)
+
+    return render(request,'portfolios_new.html',{'form':form})
 
 def portfolios_view(request, pk):
     portfolio =  get_object_or_404(Portfolio, pk=pk)

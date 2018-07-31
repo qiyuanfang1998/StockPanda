@@ -1,47 +1,40 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <!-- Top bar with link to making a new portfolio-->
 <div class = "row">
-    <div class = "col-sm">
-        <h4>{{username}}'s Portfolios </h4>
-    </div>
-    <div class = "col-sm">
-        <button type="button" class="btn btn-success float-right" id="right-panel-link" href="#right-panel">Create New Portfolio</button>
-    </div>
+   <div class = "col-sm">
+      <h4>{{username}}'s Portfolios </h4>
+   </div>
+   <div class = "col-sm">
+      <a href = "{% url 'new_portfolio' %}"  class = "btn btn-success float-right" role = "button"> Create New Portfolio</a>
+   </div>
 </div>
-
 <br>
-
 <!-- List of portfolios owned by User - superportfolio-->
 {% if not portfolios %}
-<div class="text-muted">You have no portfolios recorded</div>
+<div class="text-muted">You have no portfolios created</div>
 {% else %}
 <ul class="list-group">
-    {% for portfolio in portfolios %}
-    <li class="list-group-item"> 
-        <div class = "col-sm">
-            {% load static %} <img src="{% static "img/earth-globe.svg" %}" width = "36" height = "36"  />
-        </div>
-        <div class = "col-sm">
-            <div class = "row">
-                <a href = "#">portfolio.name</a>
-            </div>
-            <div class = "row">
-                <div class="text-muted">portfolio.description</div>
-            </div>
-        </div>
-        <div class = "col-sm float-right">
-            <p>${{portfolio.total_value}}</p>
-        </div>
-    </li>
-    {% endfor %}
+   {% for portfolio in portfolios %}
+   <li class="list-group-item row d-flex ">
+      <div class = "col-sm-2 ">
+         {% load static %} <img src="{% static "img/profits.svg" %}" width = "36" height = "36"  />
+      </div>
+      <div class = "col-sm-8">
+         <div class = "row">
+            <a href = "#">{{portfolio.name}}</a>
+         </div>
+         <div class = "row">
+            <div class="text-muted">{{portfolio.description}}</div>
+         </div>
+      </div>
+      <div class = "col-sm-2 float-right">
+         <p>${{portfolio.total_value}}</p>
+      </div>
+   </li>
+   {% endfor %}
 </ul>
 {% endif %}
-
 {% endblock %}
-
-
 {% block javascript %}
-
 {% endblock %}

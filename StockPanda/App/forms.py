@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Portfolio
 '''
 This subset of forms is for User Sign Up section of the website
 '''
@@ -82,5 +83,39 @@ This subset of forms is for the Overview section of the website
 '''
 This subset of forms is for the Portfolio section of the website
 '''
+
+class PortfolioCreationForm(forms.Form):
+    '''
+    This form extends django.forms.ModelForm
+    It's purpose is to allow the User to create a new portfolio with a new unique portfolio name
+    '''
+
+    portfolio_name = forms.CharField(max_length = 50, required = True)
+    description = forms.CharField(max_length = 250, required = True, widget = forms.Textarea())
+
     
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        self.superportfolio = self.request.user.superportfolio
+        super(PortfolioCreationForm, self).__init__(*args,**kwargs)
+    
+    def save(self, commit = True):
+        #Model validation
+        pname = self.cleaned_data['portfolio_name']
+        pdescription = self.cleaned_data['description']
+        #Model creation and saving
+        portfolio = Portfolio(name = pname, description = pdescription, owned_by = self.superportfolio)
+        if commit:
+            portfolio.save()
+        return portfolio
+
+    def clean_name(self):
+        pname = self.cleaned_data['portfolio_name']
+        if self.superportfolio.portfolios.all().filter(name = pname):
+            raise forms.ValidationError("You already have a portfolio with this name")
+        return pname 
+
+
+
+
 
