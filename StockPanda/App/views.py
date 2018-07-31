@@ -70,8 +70,10 @@ def overview(request):
 #portfolios page view
     #default view -- no specific portfolio
 def portfolios(request):
-    return render(request, 'portfolios.html')
-    #specific portfolio view, selected from secondary nav bar -- will redirect to 404 page if pk does not match
+    user = request.user
+    username = user.username
+    portfolios = user.superportfolio.portfolios.all()
+    return render(request, 'portfolios.html', {'username' : username, 'portfolios': portfolios})
 
 def new_portfolio(request):
     pass

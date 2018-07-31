@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- Top bar with link to making a new portfolio-->
+<div class = "row">
+    <div class = "col-sm">
+        <h4>{{username}}'s Portfolios </h4>
+    </div>
+    <div class = "col-sm">
+        <button type="button" class="btn btn-success float-right" id="right-panel-link" href="#right-panel">Create New Portfolio</button>
+    </div>
+</div>
 
+<br>
+
+<!-- List of portfolios owned by User - superportfolio-->
+<ul class="list-group">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+</ul>
 {% endblock %}
 
 
