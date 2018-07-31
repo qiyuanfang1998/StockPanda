@@ -14,13 +14,31 @@
 <br>
 
 <!-- List of portfolios owned by User - superportfolio-->
+{% if not portfolios %}
+<div class="text-muted">You have no portfolios recorded</div>
+{% else %}
 <ul class="list-group">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
+    {% for portfolio in portfolios %}
+    <li class="list-group-item"> 
+        <div class = "col-sm">
+            {% load static %} <img src="{% static "img/earth-globe.svg" %}" width = "36" height = "36"  />
+        </div>
+        <div class = "col-sm">
+            <div class = "row">
+                <a href = "#">portfolio.name</a>
+            </div>
+            <div class = "row">
+                <div class="text-muted">portfolio.description</div>
+            </div>
+        </div>
+        <div class = "col-sm float-right">
+            <p>${{portfolio.total_value}}</p>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
+{% endif %}
+
 {% endblock %}
 
 

@@ -5,3 +5,7 @@ App specific CSS used in addition to bootstrap
 li:not(:last-child) {
   margin-bottom: 10px;
 }
+
+a {
+  color: #28A745;
+}
