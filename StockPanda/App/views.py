@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
+from django.http import Http404
+
 
 
 #models
@@ -92,7 +94,10 @@ def new_portfolio(request):
 
 def portfolios_view(request, pk):
     portfolio =  get_object_or_404(Portfolio, pk=pk)
-    return render(request,'portfolios.html',{'portfolio' : portfolio})
+    if portfolio.owned_by.owned_by == request.user:
+        return render(request,'portfolios_view.html',{'portfolio' : portfolio})
+    else:
+        raise Http404()
 
 #markets page view
 def markets(request):

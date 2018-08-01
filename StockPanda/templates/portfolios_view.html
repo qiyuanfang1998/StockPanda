@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class = "row">
+        <div class = "col-sm">
+           <h4>{{portfolio.name}} </h4>
+        </div>
+        <div class = "col-sm">
+           <a href = "{% url 'portfolios' %}"  class = "btn btn-success float-right" role = "button"> Back To Portfolios</a>
+        </div>
+     </div>
+     <br>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

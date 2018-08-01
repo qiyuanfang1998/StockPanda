@@ -22,10 +22,10 @@
       </div>
       <div class = "col-sm-8">
          <div class = "row">
-            <a href = "#">{{portfolio.name}}</a>
+            <a href = "{% url 'portfolios_view' portfolio.pk %}">{{portfolio.name}}</a>
          </div>
          <div class = "row">
-            <div class="text-muted">{{portfolio.description}}</div>
+            <div class="text-muted small">{{portfolio.description}}</div>
          </div>
       </div>
       <div class = "col-sm-2">
