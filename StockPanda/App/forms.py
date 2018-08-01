@@ -91,7 +91,7 @@ class PortfolioCreationForm(forms.Form):
     '''
 
     portfolio_name = forms.CharField(max_length = 50, required = True)
-    description = forms.CharField(max_length = 250, required = True, widget = forms.Textarea())
+    description = forms.CharField(max_length = 250, required = False, widget = forms.Textarea())
 
     
     def __init__(self, *args, **kwargs):
