@@ -2,18 +2,33 @@
 {% block content %}
 <!-- Top Stock bar-->
 <div class = "row">
-   <div class = "col-sm-1">
-      <div class = "row">
-         <!-- Fetch logo with clearbit - logo api-->
-         <img src = "{{"//logo.clearbit.com/"|add:logostring|add:"?size=80"}}">
-      </div>
-      <div class = "row">
-        <!-- Stock symbol-->
-        <div class = "col text-center">
-                <p>{{stock.symbol}}</p>
-        </div>
-      </div>
+   <div class = "col-sm-1 text-center">
+        <!-- Fetch logo with clearbit - logo api-->
+        <img src = "{{"//logo.clearbit.com/"|add:logostring|add:"?size=80"}}">
+        <p>{{stock.symbol}}</p>
    </div>
+   <!-- Middle col of header part of the page. Contains general inforamation (non financial)-->
+   <div class = "col-sm-8">
+       <div class = "col-sm-12">
+            <!-- Stock name-->
+            <h3>{{stock.company_name}}</h3>
+            <!-- Stock categories-->
+            <small>
+                Equity Type : <a href = "https://www.google.com">Stock</a> | 
+                Exchange : <a href = "https://www.google.com"> {{stock.exchange}}</a> |
+                Sector: <a href = "https://www.google.com"> {{stock.sector}}</a> |
+                Industry: <a href = "https://www.google.com"> {{stock.industry}}</a>
+            </small>
+            <br>
+            <!-- Stock description-->
+            <small>
+                {{stock.description}}
+            </small>
+       </div>
+   </div>
+</div>
+<div class = "row">
+    <p>dasdsa</p>
 </div>
 {% endblock %}
 {% block javascript %}
