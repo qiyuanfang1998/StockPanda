@@ -41,8 +41,9 @@ urlpatterns = [
     #contact interface
     url(r'contact/$',views.contact, name = "contact"),
 
-    #stock/crypto search interface
+    #stock/crypto search interface & view interface
     url(r'search/$',views.search, name = "search"),
+    url(r'stock/(?P<pk>\d+)/$',views.stock, name = "stock"),
     #overview interface
     url(r'overview/$',views.overview, name = "overview"),
     #portfolios interface

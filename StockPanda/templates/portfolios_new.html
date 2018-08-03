@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href = "{% url 'portfolios' %}"  class = "btn btn-success float-left" role = "button"> Back</a>
+<a href = "{% url 'portfolios' %}"  class = "btn btn-success float-right" role = "button"> Back</a>
 <br><br>
 <form method = "post" novalidate>
         {% csrf_token %}
         {% include 'includes/form.html' %}
-        <button type = "submit" class = "btn btn-outline-success my-2 my-sm-0"> Create Portfolio</button>
+        <button type = "submit" class = "btn btn-outline-success my-2 my-sm-0 float-right"> Create Portfolio</button>
 {% endblock %}
 
 {% block javascript %}

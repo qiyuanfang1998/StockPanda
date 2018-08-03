@@ -15,6 +15,12 @@ Portfolios MANY TO MANY ZERO OR MORE CryptoCurrency through CryptoCurrencyOwners
 '''
 
 class Stock(models.Model):
+    '''
+    The information stored in the Stock model is for db querying so we don't have to pull all
+    of the information for the stock from web API every single time.
+    What is pulled from the web APIs is stock value information as it is impractical
+    for us to store that information in the db every single time we query.
+    '''
     #general stock information
     symbol = models.CharField(max_length = 20, default = "",unique = True)
     company_name = models.CharField(max_length = 50, default = "")
@@ -85,21 +91,6 @@ class SuperPortfolio(models.Model):
     total_value = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
     #super portfolio - User foreign key
     owned_by = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'superportfolio')
-    #aggregate portfolio perfomance
-        #portfolio amount changes information
-    one_day_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_week_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    three_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_year_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    all_time_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-        #portfolio percent change information
-    one_day_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_week_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    three_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    all_time_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
 
 
 class Portfolio(models.Model):
@@ -113,21 +104,6 @@ class Portfolio(models.Model):
     #stock, crypto ownership M2M relationships
     stocks_owned = models.ManyToManyField(Stock, through = 'StockOwnership', related_name = 'stocks')
     cryptocurrencies_owned = models.ManyToManyField(CryptoCurrency, through = 'CryptoCurrencyOwnership', related_name = 'cryptocurrencies')
-    #portfolio performance
-        #portfolio amount changes information
-    one_day_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_week_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    three_month_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_year_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    all_time_performance_amount = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-        #portfolio percent change information
-    one_day_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_week_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    three_month_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    one_year_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
-    all_time_performance_percent = models.DecimalField(max_digits = 19, decimal_places = 2,default = 0)
 
     def __str__(self):
         return self.name
@@ -146,7 +122,7 @@ class CryptoCurrencyOwnership(models.Model):
     units = models.DecimalField(max_digits = 19, decimal_places = 2)
     average_price_per_unit = models.DecimalField(max_digits = 19, decimal_places = 2)
 
-#auto create watchlist and SuperPortfolio for new User
+#auto create watchlist and SuperPortfolio everytime a new user is added to the db. Each user has a single super portfolio and watchlist.
 @receiver(post_save,sender = User)
 def create_user_watchlist_and_superportfolio(sender,instance,created,**kwargs):
     if created:

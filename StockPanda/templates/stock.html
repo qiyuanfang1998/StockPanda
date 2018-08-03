@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Top Stock bar-->
+<div class = "row">
+   <div class = "col-sm-1">
+      <div class = "row">
+         <!-- Fetch logo with clearbit - logo api-->
+         <img src = "{{"//logo.clearbit.com/"|add:logostring|add:"?size=80"}}">
+      </div>
+      <div class = "row">
+        <!-- Stock symbol-->
+        <div class = "col text-center">
+                <p>{{stock.symbol}}</p>
+        </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

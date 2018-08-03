@@ -14,7 +14,7 @@ from django.http import Http404
 
 
 
-#models
+#importing all the models from our db. Wildcard import shouldn't create any issues.
 from .models import *
 
 # home-splashpage view
@@ -63,6 +63,16 @@ def contact(request):
 #search page view
 def search(request):
     return render(request,'search.html')
+
+#stock page view
+def stock(request, pk):
+    try:
+        stock = Stock.objects.get(pk = pk)
+        stock_logo_String = stock.website[11:]
+        return render(request,'stock.html',{'stock': stock, 'logostring' : stock_logo_String})
+    except Stock.DoesNotExist:
+        raise Http404()
+
 
 #overview page view
 def overview(request):
