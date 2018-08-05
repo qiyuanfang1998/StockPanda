@@ -2,33 +2,42 @@
 {% block content %}
 <!-- Top Stock bar-->
 <div class = "row">
-   <div class = "col-sm-1 text-center">
-        <!-- Fetch logo with clearbit - logo api-->
-        <img src = "{{"//logo.clearbit.com/"|add:logostring|add:"?size=80"}}">
-        <p>{{stock.symbol}}</p>
-   </div>
-   <!-- Middle col of header part of the page. Contains general inforamation (non financial)-->
-   <div class = "col-sm-8">
-       <div class = "col-sm-12">
-            <!-- Stock name-->
-            <h3>{{stock.company_name}}</h3>
-            <!-- Stock categories-->
-            <small>
-                Equity Type : <a href = "https://www.google.com">Stock</a> | 
-                Exchange : <a href = "https://www.google.com"> {{stock.exchange}}</a> |
-                Sector: <a href = "https://www.google.com"> {{stock.sector}}</a> |
-                Industry: <a href = "https://www.google.com"> {{stock.industry}}</a>
-            </small>
-            <br>
-            <!-- Stock description-->
-            <small>
-                {{stock.description}}
-            </small>
-       </div>
-   </div>
-</div>
-<div class = "row">
-    <p>dasdsa</p>
+    <div class = "col-md-11">
+        <div class = "row">
+            <div class = "col-md-1 text-center">
+                 <!-- Fetch logo with clearbit - logo api-->
+                 <img src = "{{"//logo.clearbit.com/"|add:logostring|add:"?size=80"}}">
+                 <p>{{stock.symbol}}</p>
+            </div>
+            <!-- Middle col of header part of the page. Contains general inforamation (non financial)-->
+            <div class = "col-md-9">
+                <div class = "col-md-12">
+                     <!-- Stock name-->
+                     <h3>{{stock.company_name}}</h3>
+                     <!-- Stock categories-->
+                     <small>
+                         Equity Type : <a href = "https://www.google.com">Stock</a> | 
+                         Exchange : <a href = "https://www.google.com"> {{stock.exchange}}</a> |
+                         Sector: <a href = "https://www.google.com"> {{stock.sector}}</a> |
+                         Industry: <a href = "https://www.google.com"> {{stock.industry}}</a>
+                     </small>
+                     <br>
+                     <!-- Stock description-->
+                     <small>
+                         {{stock.description}}
+                     </small>
+                </div>
+            </div>
+         </div>
+         <div class = "row">
+             <div id = "react">
+
+             </div>
+         </div>
+    </div>
+    <div class = "col-sm-1">
+        dsa
+    </div>
 </div>
 {% endblock %}
 {% block javascript %}

@@ -33,7 +33,7 @@ urlpatterns = [
     #authenticate email interface
 
     #login interface
-    url(r'login/$', auth_views.login, {'template_name': '../templates/login.html'} , name = 'login'), 
+    url(r'^login/$', auth_views.login, {'template_name': '../templates/login.html'}, name='login'),
     #logout interface
     url(r'logout/$', auth_views.logout, {'next_page':'/'},name = 'logout'),
     #about interface
