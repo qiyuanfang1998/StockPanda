@@ -12,6 +12,8 @@ from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
+#importing stocklib
+from App.stocklib import stockinfo
 
 
 #importing all the models from our db. Wildcard import shouldn't create any issues.
@@ -68,8 +70,9 @@ def search(request):
 def stock(request, pk):
     try:
         stock = Stock.objects.get(pk = pk)
+        realtime_data = stockinfo.realtime_price(stock.symbol)
         stock_logo_String = stock.website[11:]
-        return render(request,'stock.html',{'stock': stock, 'logostring' : stock_logo_String})
+        return render(request,'stock.html',{'stock': stock, 'logostring' : stock_logo_String, 'realtime_data': realtime_data})
     except Stock.DoesNotExist:
         raise Http404()
 

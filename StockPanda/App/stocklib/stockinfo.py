@@ -16,9 +16,26 @@ For getting earnings, the function is multi-threaded to allow for multiple API c
 class UnknownStock(Exception):
     pass
 
+def realtime_price(symbol):
+    '''
+    Returns the real time price for stock with symbol x
+    realtime_price, amount_change, percent_change
+    '''
+    try:
+        api_call = "https://api.iextrading.com/1.0/stock/"+str(symbol)+"/quote"
+        res = urllib.request.urlopen(api_call).read().decode('utf-8')
+        json_res = json.loads(res)
+        if "Unknown symbol" in str(res):
+            raise UnknownStock()
+        return {'realtime_price':round(Decimal(json_res['latestPrice']),2), 'amount_change':round(Decimal(json_res['change']),2), 'percent_change':round(Decimal(json_res['changePercent']),2)}
+    except Exception as e:
+        print("Failed to retreive stock realtime price with symbol " + symbol + " "+str(e))
+
 def current_price(symbol):
     ''' Returns the delayed current price for stock with symbol x
-        T[0] := current_price'''
+        T[0] := current_price
+        DEPRECATED, USE REALTIME_PRICE FUNCTION
+        '''
     try:
         api_call = "https://api.iextrading.com/1.0/stock/"+str(symbol)+"/delayed-quote"
         res = urllib.request.urlopen(api_call).read().decode('utf-8')
