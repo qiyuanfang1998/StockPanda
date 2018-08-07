@@ -45,15 +45,22 @@
 {% block javascript %}
 
 <script>
+//data passed from Django
+var timeArr = {{time|safe}};
+var averagePrice = {{averagePrices|safe}};
+//Axis range
+var minY = Math.min.apply(null, averagePrice)-0.2;
+var maxY = Math.max.apply(null, averagePrice)+0.2;
+
 var ctx = document.getElementById("pricehistory").getContext('2d');
 var pricehistory = new Chart(ctx, {
     type: 'line',
     data: {
         
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange","2", "3", "5"],
+        labels: timeArr,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3, 6, 7, 8, 9, 4, 5, 6, 2, 3, 4, 5],
+            label: 'Average Price',
+            data: averagePrice,
             borderColor: [
                 'rgb(40, 167, 69)'
             ],
@@ -67,7 +74,9 @@ var pricehistory = new Chart(ctx, {
             }],
     yAxes: [{
             ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                max : maxY,    
+                min : minY
             }
             }]
     },

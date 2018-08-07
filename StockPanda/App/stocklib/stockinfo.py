@@ -122,30 +122,25 @@ def earnings(symbol):
     except Exception as e:
         print("Failed to retreive stock earnings information with symbol " + symbol + " " + str(e))
 
-def historical_unthreaded_test(symbol):
-    '''
-    Unthreaded for testing multiple API call
-    '''
-    pass
-
-def historical(symbol):
-    '''
-    Returns information about historical earnings of a stock with symbol
-    '''
+def oneDayChart(symbol):
     try:
-        #api calls
-        base_api_call = "https://api.iextrading.com/1.0/stock/" + str(symbol)
-
-        one_day_api_call = base_api_call+ "/chart/1d"
-        one_week_api_call = base_api_call+ "/chart/1m"
-        one_month_api_call = base_api_call + "/chart/1m"
-        three_month_api_call = base_api_call + "/chart/3m"
-        one_year_api_call = base_api_call + "/chart/1y"
-        five_year_api_call = base_api_call + "/chart/5y"
-
-        #todo
+        api_call = "https://api.iextrading.com/1.0/stock/" + str(symbol) + "/chart/1d"
+        res = urllib.request.urlopen(api_call).read().decode('utf-8')
+        json_res = json.loads(res)
+        if "Unknown symbol" in str(res):
+            raise UnknownStock()
+        averagePrices = []
+        highPrices = []
+        lowPrices = []
+        time = []
+        for data in json_res:
+            averagePrices.append(round(data['marketAverage'],2))
+            highPrices.append(round(data['marketHigh'],2))
+            lowPrices.append(round(data['marketLow'],2))
+            time.append(data['label'])
+        return {'averagePrices': averagePrices, 'highPrices': highPrices, 'lowPrices': lowPrices, 'time': time}
     except Exception as e:
-        print("Failed to retreive stock historical information with symbol " + symbol + " " + str(e))
+        print("error this really shouldn't error like really the api is hella broken :(" + symbol +" "+ str(e))
 
 def getAll(symbol):
     '''

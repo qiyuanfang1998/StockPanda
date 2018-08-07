@@ -71,11 +71,11 @@ def stock(request, pk):
     try:
         stock = Stock.objects.get(pk = pk)
         realtime_data = stockinfo.realtime_price(stock.symbol)
+        one_day = stockinfo.oneDayChart(stock.symbol)
         stock_logo_String = stock.website[11:]
-        return render(request,'stock.html',{'stock': stock, 'logostring' : stock_logo_String, 'realtime_data': realtime_data})
+        return render(request,'stock.html',{'stock': stock, 'logostring' : stock_logo_String, 'realtime_data': realtime_data,'time': one_day['time'],'averagePrices': one_day['averagePrices']})
     except Stock.DoesNotExist:
-        raise Http404()
-
+        raise Http404()    
 
 #overview page view
 def overview(request):
