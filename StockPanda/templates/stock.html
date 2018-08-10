@@ -31,11 +31,24 @@
          </div>
          <div class = "row" id = "price">
              <br>
-             <h3>&nbsp&nbsp${{realtime_data.realtime_price}} <small>{{realtime_data.amount_change}} {{realtime_data.percent_change}}%</small></h3>
+             <h3>&nbsp&nbsp${{realtime_data.realtime_price}}&nbsp&nbsp<small>{{realtime_data.amount_change}}&nbsp&nbsp{{realtime_data.percent_change}}%</small></h3>
          </div>
          <div class = "row">
              <!-- Here goes the chart.js stuff-->
              <canvas id="pricehistory" height="150"></canvas>
+         </div>
+         <div><br></div>
+         <div class = "row">
+            <div class = "col-sm">
+                <h4>News</h4>
+
+            </div>
+            <div class = "col-sm">
+                <h4>About</h4>
+                <div class = "col-sm"><h6>CEO</h6></div>
+                <div class = "col-sm"><small>{{stock.ceo}}</small></div>
+            </div>
+
          </div>
     </div>
     <div class = "col-sm-1">

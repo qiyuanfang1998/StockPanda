@@ -130,15 +130,16 @@ def oneDayChart(symbol):
         if "Unknown symbol" in str(res):
             raise UnknownStock()
         averagePrices = []
-        highPrices = []
-        lowPrices = []
         time = []
+
         for data in json_res:
-            averagePrices.append(round(data['marketAverage'],2))
-            highPrices.append(round(data['marketHigh'],2))
-            lowPrices.append(round(data['marketLow'],2))
+            if data['marketAverage'] != -1:
+                averagePrices.append(round(data['marketAverage'],2))
+            else:
+                if data['average'] != -1:
+                    averagePrices.append(round(data['average'],2))
             time.append(data['label'])
-        return {'averagePrices': averagePrices, 'highPrices': highPrices, 'lowPrices': lowPrices, 'time': time}
+        return {'averagePrices': averagePrices,'time': time}
     except Exception as e:
         print("error this really shouldn't error like really the api is hella broken :(" + symbol +" "+ str(e))
 
